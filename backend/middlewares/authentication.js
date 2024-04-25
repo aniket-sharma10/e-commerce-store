@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { UnauthenticatedError } from './error-handler.js'
+import { UnauthenticatedError } from '../errors/index.js'
 
 const auth = async (req, res, next) => {
     const token = req.cookies.access_token;
