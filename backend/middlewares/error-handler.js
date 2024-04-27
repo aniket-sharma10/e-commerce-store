@@ -9,7 +9,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 
   // duplicate value errors
   if (err.code && err.code === 11000) {
-    customError.msg = `${Object.keys(err.keyValue)} already registered, please choose another value`
+    customError.msg = `${Object.keys(err.keyValue)} already registered`
     customError.statusCode = StatusCodes.BAD_REQUEST
   }
   // validation errors

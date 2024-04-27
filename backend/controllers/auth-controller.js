@@ -8,7 +8,8 @@ export const signup = async (req, res) => {
         throw new BadRequestError('Please provide all fields')
     }
     const user = await User.create({ username, email, password })
-    res.status(StatusCodes.OK).json(user)
+    const { password: pass, ...rest } = user._doc
+    res.status(StatusCodes.OK).json(rest)
 }
 
 export const signin = async (req, res) => {
@@ -29,4 +30,30 @@ export const signin = async (req, res) => {
     const { password: pass, ...rest } = user._doc
     const token = user.createJwt()
     res.status(StatusCodes.OK).cookie('access_token', token, { httpOnly: true, maxAge: 15 * 24 * 60 * 60 * 1000 }).json(rest)
+}
+
+export const google = async (req, res) => {
+    const { name, email, googlePhotoUrl } = req.body
+
+    if (!name || !email || !googlePhotoUrl) {
+        throw new BadRequestError('Invalid credentials')
+    }
+    const user = await User.findOne({ email })
+    if (user) {
+        const { password: pass, ...rest } = user._doc
+        const token = user.createJwt()
+        res.status(StatusCodes.OK).cookie('access_token', token, { httpOnly: true, maxAge: 15 * 24 * 60 * 60 * 1000 }).json(rest)
+    }
+    else {
+        const password = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8)
+        const user = await User.create({
+            username: name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
+            email,
+            password,
+            profilePicture: googlePhotoUrl
+        })
+        const { password: pass, ...rest } = user._doc
+        const token = user.createJwt()
+        res.status(StatusCodes.OK).cookie('access_token', token, { httpOnly: true, maxAge: 15 * 24 * 60 * 60 * 1000 }).json(rest)
+    }
 }
