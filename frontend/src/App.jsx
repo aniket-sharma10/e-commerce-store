@@ -7,6 +7,8 @@ import Footerr from "./components/Footer/Footer";
 import Home from "./pages/Home";
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
+import PrivateRoute from './components/PrivateRoute'
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
       <Footerr />
     </BrowserRouter>

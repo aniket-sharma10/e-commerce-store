@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Label, Spinner, TextInput } from "flowbite-react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../redux/userSlice";
 import OAuth from "../components/OAuth";
 
@@ -11,6 +11,7 @@ function SignIn() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const {currentUser} = useSelector((state) => state.user)
 
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.id]: e.target.value.trim() });
@@ -42,6 +43,12 @@ function SignIn() {
       return toast.error(error.message);
     }
   };
+  
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [currentUser]);
 
   return (
     <div className="min-h-screen mt-20">
