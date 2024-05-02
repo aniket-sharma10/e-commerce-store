@@ -62,9 +62,9 @@ function DashSidebar() {
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (
-            <Link to={"/dashboard?tab=posts"}>
+            <Link to={"/dashboard?tab=products"}>
               <Sidebar.Item
-                active={tab === "posts"}
+                active={tab === "products"}
                 icon={HiShoppingBag}
                 as="div"
               >

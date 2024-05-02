@@ -13,7 +13,7 @@ export const getAllUsers = async (req, res) => {
         throw new UnauthenticatedError('You are not authorized to see all users')
     }
     const start = parseInt(req.query.start || 0)
-    const limit = parseInt(req.query.limit || 9)
+    const limit = parseInt(req.query.limit || 2)
     const sort = req.query.sort === 'asc' ? 1 : -1
 
     const users = await User.find().sort({ createdAt: sort }).skip(start).limit(limit)
@@ -21,7 +21,8 @@ export const getAllUsers = async (req, res) => {
         const { password, ...rest } = user._doc
         return rest
     })
-    res.status(StatusCodes.OK).json(userRes)
+    const totalUsers = await User.countDocuments()
+    res.status(StatusCodes.OK).json({userRes, totalUsers})
 }
 
 export const getUser = async (req, res) => {
