@@ -20,7 +20,7 @@ function DashUsers() {
                 const data = await res.json()
                 if(res.ok){
                     setUsers(data.userRes)
-                    if(data.userRes.length<2){
+                    if(data.userRes.length<9){
                         setShowMore(false)
                     }
                 }
@@ -41,7 +41,7 @@ function DashUsers() {
             const data = await res.json()
             if(res.ok){
                 setUsers((prev) => [...prev, ...data.userRes])
-                if(data.userRes.length<2 || users.length+data.userRes.length >= data.totalUsers){
+                if(data.userRes.length<9 || users.length+data.userRes.length >= data.totalUsers){
                     setShowMore(false)
                 }
             }

@@ -9,6 +9,7 @@ import {
   HiUser,
   HiUserGroup,
 } from "react-icons/hi";
+import { FaLayerGroup } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { signOut } from '../../redux/userSlice'
 
@@ -36,7 +37,7 @@ function DashSidebar() {
   };
 
   return (
-    <Sidebar className="w-full md:w-56">
+    <Sidebar className="w-full md:w-64">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           {currentUser.isAdmin && (
@@ -62,13 +63,26 @@ function DashSidebar() {
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (
-            <Link to={"/dashboard?tab=products"}>
+            <Sidebar.Collapse icon={HiShoppingBag} label="Products" >
+              <Link to={"/dashboard?tab=addProduct"}>
               <Sidebar.Item
-                active={tab === "products"}
+                active={tab === "addProduct"}
                 icon={HiShoppingBag}
                 as="div"
               >
-                Products
+                Add a product
+              </Sidebar.Item>
+            </Link>
+            </Sidebar.Collapse>
+          )}
+          {currentUser.isAdmin && (
+            <Link to={"/dashboard?tab=category"}>
+              <Sidebar.Item
+                active={tab === "category"}
+                icon={FaLayerGroup}
+                as="div"
+              >
+                Categories
               </Sidebar.Item>
             </Link>
           )}
