@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from "./pages/Dashboard";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
+        <Route path="/product/:prodId" element={<Product />} />
       </Routes>
       <Footerr />
     </BrowserRouter>

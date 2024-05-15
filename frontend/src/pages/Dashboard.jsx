@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import DashSidebar from '../components/Dashboard/Dash-Sidebar'
-import { useFetcher, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import DashProfile from '../components/Dashboard/Dash-Profile'
 import DashUsers from '../components/Dashboard/Dash-Users'
 import DashCategory from '../components/Dashboard/Dash-Category'
 import { useSelector } from 'react-redux'
+import DashAddProduct from '../components/Dashboard/Dash-AddProduct'
 
 function Dashboard() {
     const location = useLocation()
@@ -26,6 +27,7 @@ function Dashboard() {
         {tab==='profile' && <DashProfile />}
         {tab==='users' && currentUser.isAdmin && <DashUsers />}
         {tab==='category' && currentUser.isAdmin && <DashCategory />}
+        {tab==='addProduct' && currentUser.isAdmin && <DashAddProduct />}
     </div>
   )
 }

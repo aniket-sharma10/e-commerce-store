@@ -10,6 +10,7 @@ const app = express()
 import authRoute from './routes/auth-route.js'
 import userRoute from './routes/user-route.js'
 import categoryRoute from './routes/category-route.js'
+import productRoute from './routes/product-route.js'
 
 // middleware imports
 import notFoundMiddleware from './middlewares/not-found.js'
@@ -24,7 +25,7 @@ app.use(cookieParser())
 app.use('/api/auth', authRoute)
 app.use('/api/user', userRoute)
 app.use('/api/category', categoryRoute)
-
+app.use('/api/product', productRoute)
 
 
 // Using middlewares

@@ -1,4 +1,4 @@
-import { Button, Modal, TextInput, ToastToggle } from "flowbite-react";
+import { Button, Modal, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
