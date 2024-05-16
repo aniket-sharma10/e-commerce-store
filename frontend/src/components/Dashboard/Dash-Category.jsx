@@ -23,6 +23,7 @@ function DashCategory() {
   const [updateId, setUpdateId] = useState(null);
   const nameRef = useRef(null);
   const [editName, setEditName] = useState("");
+  const [oldName, setOldName] = useState("")
 
   const addCategoryFunc = async () => {
     try {
@@ -95,11 +96,12 @@ function DashCategory() {
       const res = await fetch(`/api/category/update/${updateId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: editName }),
+        body: JSON.stringify({ newName: editName, oldName: oldName }),
       });
       const data = await res.json();
       if (res.ok) {
         setEditName("");
+        setOldName("")
         setAllCategories((prev) =>
           prev.map((cat) => (cat._id === updateId ? data : cat))
         );
@@ -109,6 +111,7 @@ function DashCategory() {
       }
     } catch (error) {
       setEditName("");
+      setOldName("")
       return toast.error(error.message);
     }
   };
@@ -127,7 +130,7 @@ function DashCategory() {
               onChange={(e) => setAddCategory(e.target.value.trim())}
             />
             <Button
-              className="rounded-s-none rounded-e-lg"
+              className="rounded-r-lg rounded-l-none"
               gradientDuoTone={"purpleToBlue"}
               onClick={addCategoryFunc}
             >
@@ -160,6 +163,7 @@ function DashCategory() {
                           <span
                             onClick={() => {
                               setUpdateModal(true);
+                              setOldName(cat.name)
                               setUpdateId(cat._id);
                             }}
                           >
