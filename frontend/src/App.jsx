@@ -10,6 +10,8 @@ import SignIn from './pages/SignIn'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from "./pages/Dashboard";
 import Product from "./pages/Product";
+import EditProduct from "./pages/EditProduct";
+import AdminPrivateRoute from "./components/AdminPrivateRoute"
 
 function App() {
   return (
@@ -24,6 +26,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/product/:prodId" element={<Product />} />
+        <Route element={<AdminPrivateRoute />}>
+          <Route path="/product/edit/:prodId" element={<EditProduct />} />
+        </Route>
       </Routes>
       <Footerr />
     </BrowserRouter>

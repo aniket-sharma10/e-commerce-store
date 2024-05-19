@@ -83,7 +83,7 @@ export default function Product() {
             <h2 className="sm:text-3xl text-2xl border-b-2 py-2">
               {product.name}
             </h2>
-            {product && product.quantity < 0 ? (
+            {product && product.quantity > 0 ? (
               <div className="border-b-2 py-2">
                 <div className="flex">
                   <span>₹</span>

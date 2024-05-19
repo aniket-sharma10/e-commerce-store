@@ -6,6 +6,8 @@ import DashUsers from '../components/Dashboard/Dash-Users'
 import DashCategory from '../components/Dashboard/Dash-Category'
 import { useSelector } from 'react-redux'
 import DashAddProduct from '../components/Dashboard/Dash-AddProduct'
+import DashAllProducts from '../components/Dashboard/Dash-AllProducts'
+import DashEditProduct from './EditProduct'
 
 function Dashboard() {
     const location = useLocation()
@@ -28,6 +30,7 @@ function Dashboard() {
         {tab==='users' && currentUser.isAdmin && <DashUsers />}
         {tab==='category' && currentUser.isAdmin && <DashCategory />}
         {tab==='addProduct' && currentUser.isAdmin && <DashAddProduct />}
+        {tab==='allProducts' && currentUser.isAdmin && <DashAllProducts />}
     </div>
   )
 }

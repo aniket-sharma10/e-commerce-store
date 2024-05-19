@@ -21,14 +21,14 @@ export const createProduct = async(req, res)=> {
 }
 
 export const searchProduct = async(req, res) =>{ 
-    const {searchTerm, categories, brand} = req.query
+    const {q, categories, brand} = req.query
     
     const query = {}
-    if(searchTerm){
+    if(q){
         query.$or = [
-            {name: {$regex: searchTerm, $options: 'i'}},
-            {description: {$regex: searchTerm, $options: 'i'}},
-            {brand: {$regex: searchTerm, $options: 'i'}},
+            {name: {$regex: q, $options: 'i'}},
+            {description: {$regex: q, $options: 'i'}},
+            {brand: {$regex: q, $options: 'i'}},
         ]
     }
     if(brand){

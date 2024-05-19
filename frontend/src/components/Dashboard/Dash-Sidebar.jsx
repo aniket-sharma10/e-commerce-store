@@ -73,6 +73,15 @@ function DashSidebar() {
                 Add a product
               </Sidebar.Item>
             </Link>
+              <Link to={"/dashboard?tab=allProducts"}>
+              <Sidebar.Item
+                active={tab === "allProducts"}
+                icon={HiShoppingBag}
+                as="div"
+              >
+                All products
+              </Sidebar.Item>
+            </Link>
             </Sidebar.Collapse>
           )}
           {currentUser.isAdmin && (

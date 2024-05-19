@@ -14,10 +14,10 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+import { app } from "../firebase";
+import { useNavigate, useParams } from "react-router-dom";
 
-function DashAddProduct() {
+function EditProduct() {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [allCategories, setAllCategories] = useState([]);
@@ -27,6 +27,8 @@ function DashAddProduct() {
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [firebaseImageUrls, setFirebaseImageUrls] = useState([]);
   const navigate = useNavigate();
+  const { prodId } = useParams();
+  const [product, setProduct] = useState();
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -46,8 +48,28 @@ function DashAddProduct() {
         console.log(error.message);
       }
     };
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/product/${prodId}`);
+        const data = await res.json();
+        if (res.ok) {
+          setProduct(data);
+          setSelectedCategories([...selectedCategories, ...data.categories]);
+          setFirebaseImageUrls([...firebaseImageUrls, ...data.images]);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          console.log(data.msg);
+        }
+      } catch (error) {
+        setLoading(false);
+        console.log(error.message);
+      }
+    };
     fetchAllCategories();
-  }, []);
+    fetchProduct();
+  }, [prodId]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -110,7 +132,7 @@ function DashAddProduct() {
             (error) => {
               setImageUploadProgress(null);
               setImages([]);
-              setFirebaseImageUrls([]);
+              setFirebaseImageUrls([...firebaseImageUrls]);
               setImageUploading(false);
               reject(
                 toast.error(
@@ -127,7 +149,7 @@ function DashAddProduct() {
                 .catch((error) => {
                   setImageUploadProgress(null);
                   setImages([]);
-                  setFirebaseImageUrls([]);
+                  setFirebaseImageUrls([...firebaseImageUrls]);
                   setImageUploading(false);
                   reject(
                     toast.error("Failed to get download URL for the image.")
@@ -147,7 +169,10 @@ function DashAddProduct() {
         setFirebaseImageUrls((prev) => [...prev, ...uploadedImageUrls]);
         setFormData((prevFormData) => ({
           ...prevFormData,
-          images: [...(prevFormData.images || []), ...uploadedImageUrls],
+          images: [
+            ...(prevFormData.images || [...firebaseImageUrls]),
+            ...uploadedImageUrls,
+          ],
         }));
       })
       .catch((error) => {
@@ -164,8 +189,8 @@ function DashAddProduct() {
       return toast.warning("Please wait for image to upload");
     }
     try {
-      const res = await fetch(`/api/product/add`, {
-        method: "POST",
+      const res = await fetch(`/api/product/update/${prodId}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, categories: selectedCategories }),
       });
@@ -190,19 +215,33 @@ function DashAddProduct() {
     );
   }
 
+  if (!loading && !product) {
+    return (
+      <div className="min-h-screen w-full flex justify-center items-center">
+        <span className="ml-2 text-red-500">No product found!</span>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full p-4 bg-red-100 flex items-center flex-col">
-      <h2 className="text-xl md:text-3xl mb-4 p-2 ">Add new product</h2>
+      <h2 className="text-xl md:text-3xl mb-4 p-2 ">Edit product</h2>
       <form className="w-full max-w-2xl" onSubmit={handleFormSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="p-2 ">
             <Label>Name</Label>
-            <TextInput id="name" required onChange={handleInputChange} />
+            <TextInput
+              id="name"
+              defaultValue={product.name}
+              required
+              onChange={handleInputChange}
+            />
           </div>
           <div className="p-2 ">
             <Label>Price (in ₹)</Label>
             <TextInput
               id="price"
+              defaultValue={product.price}
               required
               type="number"
               onChange={handleInputChange}
@@ -210,12 +249,18 @@ function DashAddProduct() {
           </div>
           <div className="p-2 ">
             <Label>Brand</Label>
-            <TextInput id="brand" required onChange={handleInputChange} />
+            <TextInput
+              id="brand"
+              defaultValue={product.brand}
+              required
+              onChange={handleInputChange}
+            />
           </div>
           <div className="p-2 ">
             <Label>Quantity in Stock</Label>
             <TextInput
               type="number"
+              defaultValue={product.quantity}
               required
               id="quantity"
               onChange={handleInputChange}
@@ -224,7 +269,13 @@ function DashAddProduct() {
         </div>
         <div className="p-2 col-span-2">
           <Label>Description</Label>
-          <Textarea id="description" required onChange={handleInputChange} />
+          <Textarea
+            id="description"
+            defaultValue={product.description}
+            required
+            rows={4}
+            onChange={handleInputChange}
+          />
         </div>
         <div className="p-2 col-span-2">
           <Label>Select Categories</Label>
@@ -236,6 +287,7 @@ function DashAddProduct() {
                   <Checkbox
                     id={`category_${cat._id}`}
                     value={cat.name}
+                    checked={selectedCategories.includes(cat.name)}
                     onChange={() => handleCategoryChange(cat.name)}
                   />
                   <Label
@@ -250,15 +302,15 @@ function DashAddProduct() {
         </div>
         <div className="p-2 col-span-2 flex flex-col gap-3">
           <Label>Upload images</Label>
-          <input type="file" required multiple onChange={handleImageChange} />
-          <div className=" grid w-full  grid-cols-1 sm:grid-cols-3">
+          <input type="file" multiple onChange={handleImageChange} />
+          <div className=" grid w-full grid-cols-2 sm:grid-cols-3 ">
             {firebaseImageUrls &&
               firebaseImageUrls.map((imageUrl, index) => (
                 <img
                   key={index}
                   src={imageUrl}
                   alt={`image_${index}`}
-                  className="w-40 h-40 object-contain  mx-auto"
+                  className="w-40 h-40 object-contain mr-2 mb-2 mx-auto"
                 />
               ))}
             {imageUploading && <Spinner size={"sm"} />}
@@ -277,4 +329,4 @@ function DashAddProduct() {
   );
 }
 
-export default DashAddProduct;
+export default EditProduct;
