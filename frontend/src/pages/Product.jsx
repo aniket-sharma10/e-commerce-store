@@ -65,15 +65,15 @@ export default function Product() {
       <div className="flex flex-col sm:flex-row sm:justify-center sm:items-start items-center gap-8 md:gap-12">
         <Slider
           {...settings}
-          className="border border-gray-400 rounded-lg sm:w-1/2 w-full p-3"
+          className="border border-gray-400 rounded-lg overflow-hidden sm:w-1/2 w-full "
         >
           {product &&
             product.images.map((imageUrl, index) => (
-              <div key={index} className="w-full h-full">
+              <div key={index} className="w-full h-full flex items-center justify-center">
                 <img
                   src={imageUrl}
                   alt={product.name}
-                  className="w-auto mx-auto h-full md:max-w-80 sm:max-h-[500px] md:max-h-[500px] object-contain cursor-pointer hover:scale-105 transition-all ease-linear duration-300"
+                  className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-all ease-linear duration-300"
                 />
               </div>
             ))}
@@ -123,6 +123,7 @@ export default function Product() {
                 {product.description}
               </p>
             </div>
+            
           </div>
         </div>
       </div>

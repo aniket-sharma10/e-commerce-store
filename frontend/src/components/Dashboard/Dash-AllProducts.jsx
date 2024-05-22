@@ -53,7 +53,6 @@ function DashAllProducts() {
         }
     }
 
-
     const handleDeleteProduct = async() => {
         setShowModal(false)
         try {
@@ -72,6 +71,14 @@ function DashAllProducts() {
         }
     }
 
+    const truncateText = (text, wordLimit) => {
+      const words = text.split(' ');
+      if (words.length > wordLimit) {
+        return words.slice(0, wordLimit).join(' ') + '...';
+      }
+      return text;
+    };
+
 
   return (
     <div className="overflow-x-scroll w-full table-auto md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -79,7 +86,7 @@ function DashAllProducts() {
         <>
           <Table hoverable>
             <Table.Head>
-              <Table.HeadCell>Date Created</Table.HeadCell>
+              <Table.HeadCell>Date Added</Table.HeadCell>
               <Table.HeadCell>Cover Image</Table.HeadCell>
               <Table.HeadCell>Name</Table.HeadCell>
               <Table.HeadCell>Brand</Table.HeadCell>
@@ -104,7 +111,9 @@ function DashAllProducts() {
                     />
                   </Table.Cell>
                   <Table.Cell className="font-medium text-gray-900 dark:text-white truncate">
-                      {prod.name}
+                    <Link to={`/product/${prod._id}`}>
+                    {truncateText(prod.name, 6)}
+                    </Link>
                   </Table.Cell>
                   <Table.Cell className="font-medium text-gray-900 dark:text-white">
                     {prod.brand}

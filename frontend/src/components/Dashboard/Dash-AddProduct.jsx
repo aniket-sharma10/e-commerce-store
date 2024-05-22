@@ -258,7 +258,7 @@ function DashAddProduct() {
                   key={index}
                   src={imageUrl}
                   alt={`image_${index}`}
-                  className="w-40 h-40 object-contain  mx-auto"
+                  className="w-40 h-40 object-contain mb-2 mx-auto"
                 />
               ))}
             {imageUploading && <Spinner size={"sm"} />}

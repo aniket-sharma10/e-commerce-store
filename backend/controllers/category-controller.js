@@ -12,9 +12,6 @@ export const addCategory = async (req, res) => {
 }
 
 export const getAllCategories = async (req, res) => {
-    if (!req.user.isAdmin) {
-        throw new UnauthenticatedError('Only admins can add new category')
-    }
     
     const start = parseInt(req.query.start || 0)
     const limit = parseInt(req.query.limit || 0)
