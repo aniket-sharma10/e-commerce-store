@@ -54,6 +54,9 @@ function Header() {
             <Link to={"dashboard?tab=profile"}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
+            <Link to={"/cart"}>
+              <Dropdown.Item>Cart</Dropdown.Item>
+            </Link>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignout}>Sign Out</Dropdown.Item>
           </Dropdown>

@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Product from "./pages/Product";
 import EditProduct from "./pages/EditProduct";
 import AdminPrivateRoute from "./components/AdminPrivateRoute"
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
         <Route path="/product/:prodId" element={<Product />} />
         <Route element={<AdminPrivateRoute />}>
           <Route path="/product/edit/:prodId" element={<EditProduct />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
       <Footerr />

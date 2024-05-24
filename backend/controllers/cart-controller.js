@@ -1,7 +1,7 @@
 import Cart from '../models/cart-model.js'
 import Product from '../models/product-model.js'
 import { StatusCodes } from 'http-status-codes'
-import { BadRequestError, NotFoundError, UnauthenticatedError } from '../errors/index.js'
+import { BadRequestError, NotFoundError } from '../errors/index.js'
 
 export const addToCart = async(req, res) => {
     const userId = req.user.userId

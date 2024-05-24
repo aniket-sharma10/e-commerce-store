@@ -4,7 +4,7 @@ import { UnauthenticatedError } from '../errors/index.js'
 const auth = async (req, res, next) => {
     const token = req.cookies.access_token;
     if (!token) {
-        throw new UnauthenticatedError('Authentication invalid')
+        throw new UnauthenticatedError('Please log in to continue!')
     }
 
     try {
@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
         req.user = { userId: payload.userId, isAdmin: payload.isAdmin }
         next()
     } catch (error) {
-        throw new UnauthenticatedError('Authentication invalid')
+        throw new UnauthenticatedError('Please log in to continue!')
     }
 }
 

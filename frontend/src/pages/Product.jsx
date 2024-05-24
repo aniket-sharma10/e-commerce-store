@@ -5,11 +5,14 @@ import { toast } from "react-toastify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AddToCartButton from "../components/AddToCartButton";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function Product() {
   const { prodId } = useParams();
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(false);
+  const [cartQuantity, setCartQuantity] = useState(1);
   const settings = {
     dots: true,
     arrows: false,
@@ -43,6 +46,22 @@ export default function Product() {
     fetchProduct();
   }, [prodId]);
 
+  const handleIncrement = () => {
+    if (cartQuantity < 10) {
+      setCartQuantity(cartQuantity + 1);
+    } else {
+      return toast.warning("You can only select up to 10 items.");
+    }
+  };
+
+  const handleDecrement = () => {
+    if (cartQuantity > 1) {
+      setCartQuantity(cartQuantity - 1);
+    } else {
+      return toast.warning("You must select at least 1 item.");
+    }
+  };
+
   if (loading) {
     return (
       <div className="w-full p-4 min-h-screen flex justify-center items-center">
@@ -69,7 +88,10 @@ export default function Product() {
         >
           {product &&
             product.images.map((imageUrl, index) => (
-              <div key={index} className="w-full h-full flex items-center justify-center">
+              <div
+                key={index}
+                className="w-full h-full flex items-center justify-center"
+              >
                 <img
                   src={imageUrl}
                   alt={product.name}
@@ -90,6 +112,38 @@ export default function Product() {
                   <h2 className="sm:text-3xl text-2xl">{product.price}</h2>
                 </div>
                 <p className="font-light">Inclusive of all taxes</p>
+                <div className="flex justify-between items-center mt-2 px-3">
+                  <div className="flex w-1/2 items-center mt-4">
+                    <button
+                      onClick={handleDecrement}
+                      className="p-3 border border-gray-400 rounded-l"
+                    >
+                      <FaMinus />
+                    </button>
+                    <span className="px-5 py-2 border-t border-b border-gray-400">
+                      {cartQuantity}
+                    </span>
+                    <button
+                      onClick={handleIncrement}
+                      className="p-3 border border-gray-400 rounded-r"
+                    >
+                      <FaPlus />
+                    </button>
+                  </div>
+                  <div className="w-1/2 flex flex-col gap-4 p-2">
+                    <AddToCartButton
+                      productId={product._id}
+                      quantity={cartQuantity}
+                      className="bg-black px-4 py-2 flex justify-center items-center text-white rounded-lg hover:bg-blue-600 transition-all duration-100"
+                    />
+                    <button
+                      // productId={product._id}
+                      // quantity={cartQuantity}
+                      className="bg-black px-4 py-2 flex justify-center items-center text-white rounded-lg hover:bg-blue-600 transition-all duration-100">
+                        Buy Now
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="border-b-2 py-2">
@@ -123,7 +177,6 @@ export default function Product() {
                 {product.description}
               </p>
             </div>
-            
           </div>
         </div>
       </div>
