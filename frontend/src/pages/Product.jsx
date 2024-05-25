@@ -112,11 +112,11 @@ export default function Product() {
                   <h2 className="sm:text-3xl text-2xl">{product.price}</h2>
                 </div>
                 <p className="font-light">Inclusive of all taxes</p>
-                <div className="flex justify-between items-center mt-2 px-3">
-                  <div className="flex w-1/2 items-center mt-4">
+                <div className="flex flex-col sm:flex-row gap-2 justify-between sm:items-center mt-2 px-3">
+                  <div className="flex sm:w-1/2 w-full items-center mt-4 ">
                     <button
                       onClick={handleDecrement}
-                      className="p-3 border border-gray-400 rounded-l"
+                      className="p-3 border border-gray-400 rounded-l-lg"
                     >
                       <FaMinus />
                     </button>
@@ -125,16 +125,16 @@ export default function Product() {
                     </span>
                     <button
                       onClick={handleIncrement}
-                      className="p-3 border border-gray-400 rounded-r"
+                      className="p-3 border border-gray-400 rounded-r-lg"
                     >
                       <FaPlus />
                     </button>
                   </div>
-                  <div className="w-1/2 flex flex-col gap-4 p-2">
+                  <div className="sm:w-1/2 w-full flex flex-col gap-4 py-2 sm:p-2">
                     <AddToCartButton
                       productId={product._id}
                       quantity={cartQuantity}
-                      className="bg-black px-4 py-2 flex justify-center items-center text-white rounded-lg hover:bg-blue-600 transition-all duration-100"
+                      className="bg-black px-4 py-2 sm:w-full flex justify-center items-center text-white rounded-lg hover:bg-blue-600 transition-all duration-100"
                     />
                     <button
                       // productId={product._id}
