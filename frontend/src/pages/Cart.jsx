@@ -96,10 +96,10 @@ function Cart() {
   }
 
   return (
-    <div className="min-h-screen w-full max-w-6xl p-6 sm:p-10 my-10 mx-auto bg-white">
+    <div className="min-h-screen w-full max-w-6xl py-6 px-3 sm:p-10 my-10 mx-auto bg-white">
       <div className="border-b">
         <h2 className="text-3xl py-2">Shopping Cart</h2>
-        <p className="flex justify-end pr-4">Price</p>
+        <p className="flex justify-end pr-1 sm:pr-4">Price</p>
       </div>
       {!loading &&
         cartItems &&
@@ -108,7 +108,7 @@ function Cart() {
             <div className="grid gap-2 grid-cols-3 sm:grid-cols-4 items-center">
               <Link
                 to={`/product/${item.productId}`}
-                className="w-32 sm:w-44 h-32 sm:h-44 pr-1 flex items-center"
+                className="w-32 sm:w-40 md:w-44 h-32 sm:h-40 md:h-44 pr-1 flex items-center"
               >
                 <img
                   src={item.prod.images[0]}
@@ -117,13 +117,14 @@ function Cart() {
               </Link>
               <div className="col-span-2 sm:col-span-3 pl-1">
                 <div className="flex flex-col">
-                  <h3 className="hover:text-teal-600 cursor-pointer text-xl">
+                  <h3 className="hover:text-teal-600 w-3/4 cursor-pointer line-clamp-2 text-xl">
                     <Link to={`/product/${item.productId}`}>
                       {item.prod.name}
                     </Link>
                   </h3>
                   <div className="flex justify-between mt-3">
                     <Select
+                    className="p-2 w-max"
                       defaultValue={item.quantity}
                       onChange={(e) =>
                         updateQuantity(item.productId, e.target.value)
@@ -135,17 +136,17 @@ function Cart() {
                         </option>
                       ))}
                     </Select>
-                    <span className="text-xl my-auto">
+                    <span className="text-xl my-auto self-end">
                       <span className="text-lg">₹</span>
                       {item.prod.price.toFixed(2)}
                     </span>
                   </div>
-                  <div className="flex  justify-between mt-10">
+                  <div className="flex flex-col gap-4 sm:flex-row justify-between mt-2 sm:mt-10">
                     <p
-                      className="text-red-600 hover:underline cursor-pointer"
+                      className="text-red-600 hover:underline pl-3 cursor-pointer"
                       onClick={() => handleDelete(item.productId)}
                     >
-                      Remove from cart
+                      Delete
                     </p>
                     <h3 className="text-xl self-end">
                       Subtotal: <span className="text-lg">₹</span>
@@ -157,7 +158,7 @@ function Cart() {
             </div>
           </div>
         ))}
-      <div className="flex justify-end text-2xl mt-3">
+      <div className="flex  justify-end text-2xl mt-3">
         <h3 className="text-2xl">
           Total({cartItems.length} items) : <span className="text-xl">₹</span>
           {getTotalPrice()}

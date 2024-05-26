@@ -120,7 +120,7 @@ function DashCategory() {
     <div className="w-full max-w-md md:max-w-3xl mx-auto p-1 md:p-3">
       <h1 className="text-4xl my-7">Categories</h1>
       <div className="flex flex-col gap-8">
-        <div className="p-3 border border-gray-300 rounded-lg">
+        <div className="p-3 border border-gray-200 bg-white rounded-lg">
           <h3 className="text-xl mb-4 p-2">Add new category</h3>
           <div className="flex mb-2">
             <input
