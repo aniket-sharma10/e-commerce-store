@@ -4,7 +4,9 @@ import { toast } from 'react-toastify'
 
 function AddToCartButton({productId, quantity=1, className=""}) {
     const [loading, setLoading] = useState(false)
-    const addToCart = async() => {
+    const addToCart = async(e) => {
+        e.stopPropagation();
+        e.preventDefault();
         setLoading(true)
         try {
             const res = await fetch(`/api/cart`, {

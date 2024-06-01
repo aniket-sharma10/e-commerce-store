@@ -13,6 +13,7 @@ import Product from "./pages/Product";
 import EditProduct from "./pages/EditProduct";
 import AdminPrivateRoute from "./components/AdminPrivateRoute"
 import Cart from "./pages/Cart";
+import Collections from "./pages/Collections";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/cart" element={<Cart />} />
         </Route>
+        <Route path="/collections/:collectionName" element={<Collections />} />
       </Routes>
       <Footerr />
     </BrowserRouter>

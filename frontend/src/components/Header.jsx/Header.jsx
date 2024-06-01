@@ -75,8 +75,8 @@ function Header() {
           Home
         </Navbar.Link>
         <Navbar.Link href="/products">Products</Navbar.Link>
-        <Navbar.Link href="/products?category=men">Men's</Navbar.Link>
-        <Navbar.Link href="/products?category=women">Women's</Navbar.Link>
+        <Navbar.Link href="/collections/Men">Men's</Navbar.Link>
+        <Navbar.Link href="/collections/Women">Women's</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
