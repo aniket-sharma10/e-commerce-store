@@ -66,6 +66,7 @@ export const updateUser = async (req, res) => {
         password: req.body.password,
         email: req.body.email,
         profilePicture: req.body.profilePicture,
+        address: req.body.address
     }, { new: true, runValidators: true })
 
     const { password, ...rest } = updatedUser._doc

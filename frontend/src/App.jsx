@@ -14,6 +14,8 @@ import EditProduct from "./pages/EditProduct";
 import AdminPrivateRoute from "./components/AdminPrivateRoute"
 import Cart from "./pages/Cart";
 import Collections from "./pages/Collections";
+import Orders from "./pages/Orders";
+import ShippingAddress from "./pages/ShippingAddress";
 
 function App() {
   return (
@@ -26,13 +28,14 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/address" element={<ShippingAddress />} />
+          
         </Route>
         <Route path="/product/:prodId" element={<Product />} />
         <Route element={<AdminPrivateRoute />}>
           <Route path="/product/edit/:prodId" element={<EditProduct />} />
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/collections/:collectionName" element={<Collections />} />
       </Routes>

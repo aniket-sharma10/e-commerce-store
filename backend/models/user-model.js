@@ -2,6 +2,26 @@ import mongoose from "mongoose";
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
+const addressSchema = new mongoose.Schema({
+    addressLine1: {
+        type: String,
+        default: "",
+    },
+    addressLine2: {
+        type: String,
+        default: "",
+    },
+    addressLine3: {
+        type: String,
+        default: "",
+    },
+    pincode: {
+        type: Number,
+        default: null,
+        match: [/^\d{6}$/, 'Please provide a valid pincode']
+    }
+});
+
 const userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -26,7 +46,11 @@ const userSchema = mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    address: {
+        type: addressSchema,
+        default: ()=> {},
+    },
 }, {timestamps: true})
 
 userSchema.pre('save', function(next){

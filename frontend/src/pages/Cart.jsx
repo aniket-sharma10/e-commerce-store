@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Select, Spinner } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Button, Select, Spinner } from "flowbite-react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -86,6 +87,15 @@ function Cart() {
       .toFixed(2);
   };
 
+  const handleProceed = () => {
+    navigate('/address', {
+      state: {
+        amount: getTotalPrice(),
+        products: cartItems,
+      },
+    });
+  };
+
   if (loading) {
     return (
       <div className="w-full p-4 min-h-screen flex justify-center items-center">
@@ -163,6 +173,9 @@ function Cart() {
           Total({cartItems.length} items) : <span className="text-xl">₹</span>
           {getTotalPrice()}
         </h3>
+      </div>
+      <div>
+       <Button onClick={handleProceed}>Proceed</Button>
       </div>
     </div>
   );
