@@ -62,7 +62,7 @@ const OrderSchema = new mongoose.Schema({
     },
     deliveryStatus: {
         type: String,
-        enum: ['ordered', 'shipped', 'out for delivery', 'delivered'],
+        enum: ['failed','ordered', 'shipped', 'out for delivery', 'delivered'],
         default: 'ordered',
     },
 }, {timestamps: true});

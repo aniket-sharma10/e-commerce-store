@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import DashAddProduct from '../components/Dashboard/Dash-AddProduct'
 import DashAllProducts from '../components/Dashboard/Dash-AllProducts'
 import DashEditProduct from './EditProduct'
+import DashOrders from '../components/Dashboard/Dash-Orders'
 
 function Dashboard() {
     const location = useLocation()
@@ -31,6 +32,7 @@ function Dashboard() {
         {tab==='category' && currentUser.isAdmin && <DashCategory />}
         {tab==='addProduct' && currentUser.isAdmin && <DashAddProduct />}
         {tab==='allProducts' && currentUser.isAdmin && <DashAllProducts />}
+        {tab==='orders' && currentUser.isAdmin && <DashOrders />}
     </div>
   )
 }

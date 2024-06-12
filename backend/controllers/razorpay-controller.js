@@ -54,6 +54,7 @@ export const verifySignature = async (req, res) => {
             return res.status(StatusCodes.OK).json('Payment verified and captured successfully');
         } else {
             order.status = payment.status;
+            order.deliveryStatus = 'failed'
             await order.save();
             return res.status(StatusCodes.BAD_REQUEST).json(`Payment not captured, current status: ${payment.status}`);
         }

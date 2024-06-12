@@ -1,5 +1,5 @@
 import { Sidebar } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi";
 import { FaLayerGroup } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import { signOut } from '../../redux/userSlice'
+import { signOut } from "../../redux/userSlice";
 
 function DashSidebar() {
   const { currentUser } = useSelector((state) => state.user);
@@ -19,17 +19,24 @@ function DashSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tab = urlParams.get("tab");
+    if (tab) {
+      setTab(tab);
+    }
+  }, [location.search]);
+
   const handleSignout = async () => {
     try {
       const res = await fetch(`/api/user/signout`, {
         method: "POST",
       });
       const data = await res.json();
-      if(res.ok){
-        dispatch(signOut())
-      }
-      else{
-        return toast.error(data.msg)
+      if (res.ok) {
+        dispatch(signOut());
+      } else {
+        return toast.error(data.msg);
       }
     } catch (error) {
       return toast.error(error.message);
@@ -62,26 +69,43 @@ function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+          {currentUser.isAdmin ? (
+              <Link to={"/dashboard?tab=orders"}>
+                <Sidebar.Item
+                  active={tab === "orders"}
+                  icon={HiShoppingBag}
+                  as="div"
+                >
+                  Orders
+                </Sidebar.Item>
+              </Link>
+          ) : (
+              <Link to={"/orders"}>
+                <Sidebar.Item icon={HiShoppingBag} as="div">
+                  Your orders
+                </Sidebar.Item>
+              </Link>
+          )}
           {currentUser.isAdmin && (
-            <Sidebar.Collapse icon={HiShoppingBag} label="Products" >
+            <Sidebar.Collapse icon={HiShoppingBag} label="Products">
               <Link to={"/dashboard?tab=addProduct"}>
-              <Sidebar.Item
-                active={tab === "addProduct"}
-                icon={HiShoppingBag}
-                as="div"
-              >
-                Add a product
-              </Sidebar.Item>
-            </Link>
+                <Sidebar.Item
+                  active={tab === "addProduct"}
+                  icon={HiShoppingBag}
+                  as="div"
+                >
+                  Add a product
+                </Sidebar.Item>
+              </Link>
               <Link to={"/dashboard?tab=allProducts"}>
-              <Sidebar.Item
-                active={tab === "allProducts"}
-                icon={HiShoppingBag}
-                as="div"
-              >
-                All products
-              </Sidebar.Item>
-            </Link>
+                <Sidebar.Item
+                  active={tab === "allProducts"}
+                  icon={HiShoppingBag}
+                  as="div"
+                >
+                  All products
+                </Sidebar.Item>
+              </Link>
             </Sidebar.Collapse>
           )}
           {currentUser.isAdmin && (
