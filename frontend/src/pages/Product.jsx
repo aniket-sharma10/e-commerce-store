@@ -1,6 +1,6 @@
 import { Button, Spinner } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,6 +10,7 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function Product() {
   const { prodId } = useParams();
+  const navigate = useNavigate()
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(false);
   const [cartQuantity, setCartQuantity] = useState(1);
@@ -60,6 +61,15 @@ export default function Product() {
     } else {
       return toast.warning("You must select at least 1 item.");
     }
+  };
+
+  const handleProceed = (price, prod, productId) => {
+    navigate('/address', {
+      state: {
+        amount: `${cartQuantity*price}`,
+        products: [{prod, productId, quantity: cartQuantity}],
+      },
+    });
   };
 
   if (loading) {
@@ -137,8 +147,7 @@ export default function Product() {
                       className="bg-black px-4 py-2 sm:w-full flex justify-center items-center text-white rounded-lg hover:bg-blue-600 transition-all duration-100"
                     />
                     <button
-                      // productId={product._id}
-                      // quantity={cartQuantity}
+                    onClick={()=> handleProceed(product.price, product, product._id)}
                       className="bg-black px-4 py-2 flex justify-center items-center text-white rounded-lg hover:bg-blue-600 transition-all duration-100">
                         Buy Now
                     </button>

@@ -67,8 +67,7 @@ const ShippingAddress = () => {
         return toast.error(data.msg);
       }
     } catch (error) {
-      console.error("Error during checkout", error);
-      alert("Error during checkout. Please try again.");
+      return toast.error("Error during checkout");
     }
   };
 

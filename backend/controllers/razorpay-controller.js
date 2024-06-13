@@ -49,7 +49,7 @@ export const verifySignature = async (req, res) => {
         const payment = await razorpay.payments.fetch(razorpay_payment_id);
 
         if (payment.status === "captured") {
-            order.status = "successfull";
+            order.status = "successful";
             await order.save();
             return res.status(StatusCodes.OK).json('Payment verified and captured successfully');
         } else {

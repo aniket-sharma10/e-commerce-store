@@ -92,9 +92,9 @@ function Footerr() {
               >
                 My Account
               </Link>
-              <li className="text-base cursor-pointer  hover:text-teal-400">
+              <Link to={'/orders'} className="text-base cursor-pointer  hover:text-teal-400">
                 My Orders
-              </li>
+              </Link>
               <li className="text-base cursor-pointer  hover:text-teal-400">
                 FAQs
               </li>

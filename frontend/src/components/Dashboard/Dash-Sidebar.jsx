@@ -9,6 +9,7 @@ import {
   HiUser,
   HiUserGroup,
 } from "react-icons/hi";
+import { IoBagAdd, IoOptionsSharp, IoReceipt } from "react-icons/io5";
 import { FaLayerGroup } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { signOut } from "../../redux/userSlice";
@@ -73,7 +74,7 @@ function DashSidebar() {
               <Link to={"/dashboard?tab=orders"}>
                 <Sidebar.Item
                   active={tab === "orders"}
-                  icon={HiShoppingBag}
+                  icon={IoReceipt }
                   as="div"
                 >
                   Orders
@@ -81,7 +82,7 @@ function DashSidebar() {
               </Link>
           ) : (
               <Link to={"/orders"}>
-                <Sidebar.Item icon={HiShoppingBag} as="div">
+                <Sidebar.Item icon={IoReceipt } as="div">
                   Your orders
                 </Sidebar.Item>
               </Link>
@@ -91,7 +92,7 @@ function DashSidebar() {
               <Link to={"/dashboard?tab=addProduct"}>
                 <Sidebar.Item
                   active={tab === "addProduct"}
-                  icon={HiShoppingBag}
+                  icon={IoBagAdd}
                   as="div"
                 >
                   Add a product
@@ -100,7 +101,7 @@ function DashSidebar() {
               <Link to={"/dashboard?tab=allProducts"}>
                 <Sidebar.Item
                   active={tab === "allProducts"}
-                  icon={HiShoppingBag}
+                  icon={FaLayerGroup }
                   as="div"
                 >
                   All products
@@ -112,7 +113,7 @@ function DashSidebar() {
             <Link to={"/dashboard?tab=category"}>
               <Sidebar.Item
                 active={tab === "category"}
-                icon={FaLayerGroup}
+                icon={IoOptionsSharp}
                 as="div"
               >
                 Categories

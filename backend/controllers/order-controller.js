@@ -24,7 +24,7 @@ export const getOrders = async (req, res) => {
         orders = await Order.find(query).populate('userId').populate('products.productId').sort({ updatedAt: sortDirection }).skip(start).limit(limit);
     }
     else {
-        orders = await Order.find({ userId: req.user.userId }).populate('products.productId').sort({ updatedAt: sortDirection }).skip(start).limit(limit);
+        orders = await Order.find({ userId: req.user.userId }).populate('products.productId');
     }
     if (!orders) {
         throw new NotFoundError('No orders found!')
