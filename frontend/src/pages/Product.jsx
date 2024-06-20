@@ -90,7 +90,7 @@ export default function Product() {
   }
 
   return (
-    <div className="min-h-screen w-full mx-auto p-4 max-w-lg sm:max-w-3xl md:max-w-4xl lg:max-w-5xl">
+    <div className="min-h-screen w-full mx-auto p-4 max-w-lg sm:max-w-3xl md:max-w-4xl lg:max-w-6xl">
       <div className="flex flex-col sm:flex-row sm:justify-center sm:items-start items-center gap-8 md:gap-12">
         <Slider
           {...settings}

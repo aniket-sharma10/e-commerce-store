@@ -27,7 +27,7 @@ function Collections() {
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/product/search?categories=${collectionName}`
+          `/api/product/search?categories=${collectionName}&limit=0`
         );
         const data = await res.json();
         if (res.ok) {
@@ -120,7 +120,7 @@ function Collections() {
   }
 
   return (
-    <div className="min-h-screen w-full max-w-6xl mx-auto my-10 p-2 md:p-6">
+    <div className="min-h-screen w-full max-w-6xl mx-auto my-10 mb-20 p-2 md:p-6">
       <div className="flex justify-between">
         <div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl">Collections</h2>

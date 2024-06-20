@@ -123,6 +123,7 @@ function DashOrders() {
             className="w-full p-2 border rounded cursor-pointer"
           >
             <option value="all">All</option>
+            <option value="failed">Failed</option>
             <option value="ordered">Ordered</option>
             <option value="shipped">Shipped</option>
             <option value="out for delivery">Out for Delivery</option>

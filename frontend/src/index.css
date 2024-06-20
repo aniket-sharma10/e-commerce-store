@@ -68,3 +68,12 @@ body{
   font-size: 12px;
   white-space: nowrap;
 }
+
+.custom-circle {
+  width: 90px !important; 
+  height: 90px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  /* padding: 16px !important; */
+}

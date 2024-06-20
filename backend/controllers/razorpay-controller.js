@@ -1,5 +1,6 @@
 import Razorpay from "razorpay"
 import Order from "../models/order-model.js"
+import Product from "../models/product-model.js"
 import dotenv from 'dotenv'
 import NotFoundError from "../errors/not-found.js";
 import { StatusCodes } from "http-status-codes";
@@ -20,6 +21,17 @@ export const createOrder = async (req, res) => {
     };
 
     const response = await razorpay.orders.create(options);
+    for (const product of products) {
+        const { productId, quantity } = product;
+        const productInDb = await Product.findById(productId);
+
+        if (productInDb) {
+            productInDb.quantity = productInDb.quantity - quantity;
+            await productInDb.save();
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json(`Product with ID ${productId} not found`);
+        }
+    }
     const newOrder = new Order({
         order_id: response.id,
         userId,
