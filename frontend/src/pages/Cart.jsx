@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -19,7 +19,7 @@ function Cart() {
           setLoading(false);
         } else {
           setLoading(false);
-          return toast.error("Failed to fetch cart");
+          // return toast.warning("Your cart is empty!");
         }
       } catch (error) {
         setLoading(false);
@@ -88,7 +88,7 @@ function Cart() {
   };
 
   const handleProceed = () => {
-    navigate('/address', {
+    navigate("/address", {
       state: {
         amount: getTotalPrice(),
         products: cartItems,
@@ -113,6 +113,7 @@ function Cart() {
       </div>
       {!loading &&
         cartItems &&
+        cartItems.length > 0 &&
         cartItems.map((item, index) => (
           <div key={index} className="border-b p-1 sm:p-3">
             <div className="grid gap-2 grid-cols-3 sm:grid-cols-4 items-center">
@@ -134,7 +135,7 @@ function Cart() {
                   </h3>
                   <div className="flex justify-between mt-3">
                     <Select
-                    className="p-2 w-max"
+                      className="p-2 w-max"
                       defaultValue={item.quantity}
                       onChange={(e) =>
                         updateQuantity(item.productId, e.target.value)
@@ -168,15 +169,22 @@ function Cart() {
             </div>
           </div>
         ))}
-      <div className="flex  justify-end text-2xl mt-3">
-        <h3 className="text-2xl">
-          Total({cartItems.length} items) : <span className="text-xl">₹</span>
-          {getTotalPrice()}
-        </h3>
-      </div>
-      <div>
-       <Button onClick={handleProceed}>Proceed</Button>
-      </div>
+      {cartItems.length > 0 ? (
+        <>
+          <div className="flex  justify-end text-2xl mt-3">
+            <h3 className="text-2xl">
+              Total({cartItems.length} items) :{" "}
+              <span className="text-xl">₹</span>
+              {getTotalPrice()}
+            </h3>
+          </div>
+          <div>
+            <Button onClick={handleProceed}>Proceed</Button>
+          </div>
+        </>
+      ) : (
+        <h4 className="text-2xl text-center my-20">0 items in cart !</h4>
+      )}
     </div>
   );
 }
