@@ -9,7 +9,7 @@ import {
   HiUser,
   HiUserGroup,
 } from "react-icons/hi";
-import { IoBagAdd, IoOptionsSharp, IoReceipt } from "react-icons/io5";
+import { IoBagAdd, IoHomeSharp, IoOptionsSharp, IoReceipt } from "react-icons/io5";
 import { FaLayerGroup } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { signOut } from "../../redux/userSlice";
@@ -68,6 +68,15 @@ function DashSidebar() {
               as="div"
             >
               Profile
+            </Sidebar.Item>
+          </Link>
+          <Link to={"/address"}>
+            <Sidebar.Item
+              icon={IoHomeSharp}
+              labelColor="dark"
+              as="div"
+            >
+              Your address
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin ? (

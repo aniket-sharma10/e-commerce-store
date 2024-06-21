@@ -3,7 +3,7 @@ import Order from "../models/order-model.js"
 import { NotFoundError, BadRequestError, UnauthenticatedError } from "../errors/index.js";
 
 export const getOrders = async (req, res) => {
-    const { q, dStatus } = req.query
+    const { q, dStatus, userId } = req.query
     
     const query = {}
     if (q) {
@@ -20,11 +20,11 @@ export const getOrders = async (req, res) => {
     const sortDirection = req.query.sort === 'asc' ? 1 : -1
 
     let orders;
-    if (req.user.isAdmin) {
-        orders = await Order.find(query).populate('userId').populate('products.productId').sort({ updatedAt: sortDirection }).skip(start).limit(limit);
+    if (userId && userId===req.user.userId) {
+        orders = await Order.find({ userId: req.user.userId }).populate('products.productId').sort({ updatedAt: sortDirection });
     }
     else {
-        orders = await Order.find({ userId: req.user.userId }).populate('products.productId').sort({ updatedAt: sortDirection });
+        orders = await Order.find(query).populate('userId').populate('products.productId').sort({ updatedAt: sortDirection }).skip(start).limit(limit);
     }
     if (!orders) {
         throw new NotFoundError('No orders found!')

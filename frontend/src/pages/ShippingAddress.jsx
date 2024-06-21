@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Payment from "../components/Payment";
 import { Button, Spinner, TextInput } from "flowbite-react";
+import { updateUser } from "../redux/userSlice";
+
 
 const ShippingAddress = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const { amount, products } = location.state || {};
   const { currentUser } = useSelector((state) => state.user);
@@ -18,13 +19,14 @@ const ShippingAddress = () => {
   });
   const [loading, setLoading] = useState(false);
   const [addressConfirmed, setAddressConfirmed] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (currentUser && currentUser.address) {
       setAddress(currentUser.address);
       setAddressConfirmed(true)
     }
-  }, [currentUser]);
+  }, []);
 
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +36,7 @@ const ShippingAddress = () => {
     }));
   };
 
-  const handleCheckout = async (e) => {
+  const handleAddressConfirm = async (e) => {
     e.preventDefault()
     setLoading(true);
     try {
@@ -42,7 +44,7 @@ const ShippingAddress = () => {
             addressLine1: address.addressLine1.trim(),
             addressLine2: address.addressLine2.trim(),
             addressLine3: address.addressLine3.trim(),
-            pincode: address.pincode.trim(),
+            pincode: address.pincode,
           };
       
           const isAddressComplete = Object.values(trimmedAddress).every(
@@ -61,13 +63,15 @@ const ShippingAddress = () => {
       if (res.ok) {
         setLoading(false);
         setAddressConfirmed(true)
+        dispatch(updateUser(data))
         return toast.success("Saved shipping address");
       } else {
         setLoading(false);
         return toast.error(data.msg);
       }
     } catch (error) {
-      return toast.error("Error during checkout");
+      console.log(error.message)
+      setLoading(false)
     }
   };
 
@@ -129,10 +133,13 @@ const ShippingAddress = () => {
           />
         </div>
         <div className="mt-2 flex flex-col sm:flex-row gap-4  items-center justify-between w-full sm:w-2/3 p-2 sm:p-5">
-          <Button color={'blue'} className="w-full" type="button" onClick={handleCheckout} disabled={loading}>
+          <Button color={'blue'} className="w-full" type="button" onClick={handleAddressConfirm} disabled={loading}>
             {loading ? <Spinner /> : "Confirm Address"}
           </Button>
-          {addressConfirmed && !loading && <Payment amount={amount} products={products} address={address} className="w-full" />}
+          {/* {addressConfirmed && !loading && <Payment amount={amount} products={products} address={address} className="w-full" />} */}
+          {amount && address && !loading && addressConfirmed && (
+            <Payment amount={amount} products={products} address={address} className="w-full" />
+          )}
         </div>
       </form>
     </div>
