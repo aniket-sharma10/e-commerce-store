@@ -32,7 +32,7 @@ function DashUsers() {
             }
         }
         fetchUsers()
-    }, [currentUser._id])
+    }, [])
 
     const handleShowMore = async() => {
         const start = users.length

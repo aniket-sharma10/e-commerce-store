@@ -9,6 +9,7 @@ import DashAddProduct from '../components/Dashboard/Dash-AddProduct'
 import DashAllProducts from '../components/Dashboard/Dash-AllProducts'
 import DashEditProduct from './EditProduct'
 import DashOrders from '../components/Dashboard/Dash-Orders'
+import DashDashboard from '../components/Dashboard/Dash-Dashboard'
 
 function Dashboard() {
     const location = useLocation()
@@ -20,13 +21,14 @@ function Dashboard() {
         const tab = urlParams.get('tab')
         if(tab){
             setTab(tab)
-        } 
+        }
     }, [location.search])
     
   return (
     <div className='flex min-h-screen flex-col md:flex-row'>
         <div><DashSidebar /></div>
         
+        {tab==='dash' && currentUser.isAdmin && <DashDashboard />}
         {tab==='profile' && <DashProfile />}
         {tab==='users' && currentUser.isAdmin && <DashUsers />}
         {tab==='category' && currentUser.isAdmin && <DashCategory />}
