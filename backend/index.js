@@ -1,10 +1,15 @@
 import express from 'express'
 import path from 'path';
+import { fileURLToPath } from 'url';
 import connectDB from './db/connect.js'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import 'express-async-errors'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express()
 
 // router imports
@@ -33,14 +38,11 @@ app.use('/api/product', productRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/order', orderRoute)
 
-
-const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
   });
-  
 
 // Using middlewares
 app.use(notFoundMiddleware)
