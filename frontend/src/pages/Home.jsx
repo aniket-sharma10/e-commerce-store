@@ -135,7 +135,7 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen w-full sm:px-3 m-0 mx-auto ">
+    <div className="min-h-screen w-full sm:px-3 px-2 m-0 mx-auto ">
       <div>
         <Slider {...settings}>
           <Link to={"/collections/Men"} className="w-full h-full ">
