@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { use } from "express/lib/router";
-import { act } from "react";
 
 const initialState = {
     currentUser: null,
