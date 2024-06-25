@@ -19,7 +19,7 @@
       "destination": "/backend/index.js"
     },
     {
-      "source": "/(.*)",
+      "source": "/[^.]+",
       "destination": "/frontend/$1"
     }
   ]
