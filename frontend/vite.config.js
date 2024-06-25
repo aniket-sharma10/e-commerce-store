@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://e-commerce-store-ten-orpin.vercel.app',
+        target: 'https://shoppers-aniket.vercel.app',
         secure: false
       }
     }
