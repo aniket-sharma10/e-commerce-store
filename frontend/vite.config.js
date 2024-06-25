@@ -11,5 +11,8 @@ export default defineConfig({
         secure: false
       }
     }
+  },
+  build: {
+    outDir: 'frontend/dist', // Specify the output directory
   }
 })
