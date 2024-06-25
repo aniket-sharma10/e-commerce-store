@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://e-commerce-store-ten-orpin.vercel.app',
         secure: false
       }
     }
