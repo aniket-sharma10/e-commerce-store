@@ -19,20 +19,16 @@
       "dest": "backend/index.js"
     },
     {
-      "src": "^/static/(.*)",
-      "dest": "/frontend/dist/static/$1"
-    },
-    {
       "src": "^/assets/(.*)",
       "dest": "/frontend/dist/assets/$1"
     },
     {
-      "src": "^/favicon.ico",
-      "dest": "/frontend/dist/favicon.ico"
+      "src": "^/(.*).(js|css|ico)$",
+      "dest": "/frontend/dist/$1.$2"
     },
     {
       "src": "/(.*)",
-      "dest": "/backend/index.js"
+      "dest": "backend/index.js"
     }
   ]
 }
