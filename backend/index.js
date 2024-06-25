@@ -34,12 +34,13 @@ app.use('/api/cart', cartRoute)
 app.use('/api/order', orderRoute)
 
 
-const dirname = path.resolve();
-app.use(express.static(path.join(dirname, '../frontend/dist')));
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(dirname, '../frontend/dist/index.html'));
-});
+    res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
+  });
+  
 
 // Using middlewares
 app.use(notFoundMiddleware)
