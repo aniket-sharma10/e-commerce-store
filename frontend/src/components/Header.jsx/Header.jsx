@@ -71,12 +71,12 @@ function Header() {
       </div>
 
       <Navbar.Collapse>
-        <Navbar.Link href="/" active>
+        <Link to="/">
           Home
-        </Navbar.Link>
-        <Navbar.Link href="/collections/Men">Men's</Navbar.Link>
-        <Navbar.Link href="/collections/Women">Women's</Navbar.Link>
-        <Navbar.Link href="/collections/Footwear">Footwear</Navbar.Link>
+        </Link>
+        <Link to="/collections/Men">Men's</Link>
+        <Link to="/collections/Women">Women's</Link>
+        <Link to="/collections/Footwear">Footwear</Link>
       </Navbar.Collapse>
     </Navbar>
   );
