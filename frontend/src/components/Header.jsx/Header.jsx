@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { signOut } from '../../redux/userSlice'
@@ -8,7 +8,12 @@ import { signOut } from '../../redux/userSlice'
 function Header() {
   const {currentUser} = useSelector((state) => state.user)
   const dispatch = useDispatch()
+  const location = useLocation()
   
+  const getLinkClass = (path) => {
+    return location.pathname === path ? 'text-teal-500' : ''
+  }
+
 
   const handleSignout = async() => {
     try {
@@ -30,8 +35,8 @@ function Header() {
 
   return (
     <Navbar fluid rounded>
-      <Link className="text-base sm:text-xl whitespace-nowrap font-semibold dark:text-white">
-        <span className="p-1 bg-gradient-to-tr from-blue-400 via-blue-600 to-blue-800 text-white rounded-lg">
+      <Link to={'/'} className="text-base sm:text-xl whitespace-nowrap font-semibold">
+        <span className="p-1 text-blue-600 rounded-lg font-serif">
           Shoppers
         </span>
       </Link>
@@ -71,12 +76,12 @@ function Header() {
       </div>
 
       <Navbar.Collapse>
-        <Link to="/">
+        <Link to="/"  className={`hover:text-teal-500 ${getLinkClass('/')}`}>
           Home
         </Link>
-        <Link to="/collections/Men">Men's</Link>
-        <Link to="/collections/Women">Women's</Link>
-        <Link to="/collections/Footwear">Footwear</Link>
+        <Link to="/collections/Men" className={`hover:text-teal-500 ${getLinkClass('/collections/Men')}`}>Men's</Link>
+        <Link to="/collections/Women" className={`hover:text-teal-500 ${getLinkClass('/collections/Women')}`}>Women's</Link>
+        <Link to="/collections/Footwear" className={`hover:text-teal-500 ${getLinkClass('/collections/Footwear')}`}>Footwear</Link>
       </Navbar.Collapse>
     </Navbar>
   );

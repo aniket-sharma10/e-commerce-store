@@ -126,13 +126,6 @@ function Home() {
     );
   }
 
-  if (!loading && products.length === 0) {
-    return (
-      <div className="w-full p-4 min-h-screen flex justify-center items-center">
-        <p className="mb-2 text-2xl">No products found!</p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen w-full sm:px-3 px-2 m-0 mx-auto ">
