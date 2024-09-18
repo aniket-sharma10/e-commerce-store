@@ -155,7 +155,7 @@ function DashOrders() {
                       {order.order_id}
                     </Table.Cell>
                     <Table.Cell className=" text-gray-900">
-                      {order.userId.email}
+                    {order.userId ? order.userId.email : "Deleted User"}
                     </Table.Cell>
                     <Table.Cell className=" text-gray-900">
                       {`${order.address.addressLine1}, ${order.address.addressLine2}, ${order.address.addressLine3}, ${order.address.pincode}`}
