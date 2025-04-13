@@ -1,7 +1,7 @@
 import { Button, Modal, Table } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
-import { LuShieldCheck, LuShieldClose } from 'react-icons/lu'
+import { LuShieldCheck, LuShieldX } from 'react-icons/lu'
 import {MdDelete} from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -109,7 +109,7 @@ function DashUsers() {
                     {user.email}
                   </Table.Cell>
                   <Table.Cell className="font-medium text-gray-900 dark:text-white">
-                    {user.isAdmin ? (<LuShieldCheck color="green" size={'1.5em'} />) : (<LuShieldClose color="red" size={'1.5em'} />)}
+                    {user.isAdmin ? (<LuShieldCheck color="green" size={'1.5em'} />) : (<LuShieldX  color="red" size={'1.5em'} />)}
                   </Table.Cell>
                   <Table.Cell>
                     <span
